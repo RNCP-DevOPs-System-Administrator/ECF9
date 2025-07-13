@@ -1,0 +1,1 @@
+{ name: "nagios", ip: "#{subnet}50", box: "debian/bullseye64", mem: 2048, cpus: 2, script: "nagios_core.sh" },

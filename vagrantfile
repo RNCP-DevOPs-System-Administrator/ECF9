@@ -1,0 +1,33 @@
+Vagrant.configure("2") do |config|
+  config.vm.box_check_update = false
+
+  # Réseau privé commun
+  subnet = "192.168.1."
+
+  servers = [
+    { name: "srv-ad_dns_dhcp", ip: "#{subnet}10", box: "gusztavvargadr/windows-server-2022", mem: 2048, cpus: 2, script: "ad_dns_dhcp.ps1" },
+    { name: "srv-file", ip: "#{subnet}20", box: "gusztavvargadr/windows-server-2022", mem: 2048, cpus: 1, script: "file.ps1" },
+    { name: "srv-tickets", ip: "#{subnet}30", box: "debian/bullseye64", mem: 1024, cpus: 1, script: "apache_ticket.sh" },
+    { name: "srv-intranet", ip: "#{subnet}40", box: "ubuntu/jammy64", mem: 1024, cpus: 1, script: "nginx_intranet.sh" },
+    { name: "srv-wsus", ip: "#{subnet}50", box: "gusztavvargadr/windows-server-2022", mem: 2048, cpus: 1, script: "wsus.ps1" },
+    { name: "srv-bdd", ip: "#{subnet}60", box: "gusztavvargadr/windows-server-2022", mem: 2048, cpus: 1, script: "mysql.ps1" },
+  ]
+
+  servers.each do |srv|
+    config.vm.define srv[:name] do |node|
+      node.vm.box = srv[:box]
+      node.vm.hostname = srv[:name]
+      node.vm.network "private_network", ip: srv[:ip]
+      node.vm.provider "virtualbox" do |vb|
+        vb.memory = srv[:mem]
+        vb.cpus = srv[:cpus]
+      end
+
+      if srv[:box].include?("windows")
+        node.vm.provision "shell", path: "scripts/#{srv[:script]}", privileged: false
+      else
+        node.vm.provision "shell", path: "scripts/#{srv[:script]}"
+      end
+    end
+  end
+end
