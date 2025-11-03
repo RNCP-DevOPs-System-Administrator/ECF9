@@ -9,12 +9,12 @@
 ## 📚 CONSIGNES
 
 ### Considérons que l’entreprise X possèdent plusieurs serveurs :
-1. 1 Windows server 2022 avec les rôles Active Directory DNS et DHCP
-2. 1 Windows server 2022 de fichiers hébergeant les données de l’entreprise
-3. 1 Debian 11 avec Apache/PHP et hébergeant le système de ticket de l’entreprise
-4. 1 Ubuntu server 22.04 avec Nginx et hébergeant l’intranet de l’entreprise
-5. 1 Windows server 2022 hébergeant WSUS
-6. 1 Windows server 2022 hébergeant la base de données (sous MySQL) du logiciel RH de l’entreprise
+1. Windows server 2022 avec les rôles Active Directory DNS et DHCP
+2. Windows server 2022 de fichiers hébergeant les données de l’entreprise
+3. Debian 11 avec Apache/PHP et hébergeant le système de ticket de l’entreprise
+4. Ubuntu server 22.04 avec Nginx et hébergeant l’intranet de l’entreprise
+5. Windows server 2022 hébergeant WSUS
+6. Windows server 2022 hébergeant la base de données (sous MySQL) du logiciel RH de l’entreprise
 
 ### Considérons que l’entreprise X possèdent plusieurs équipements réseaux :
 1. Un switch de niveau 2 dédié à la connectivité des différents ordinateurs
